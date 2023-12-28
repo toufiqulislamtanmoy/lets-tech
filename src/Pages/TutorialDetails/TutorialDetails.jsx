@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ReactPlayer from 'react-player';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
