@@ -4,6 +4,8 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { AuthContext } from "../Pages/Provider/AuthProviders";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileCirclePlus, faFilePen, faHouseChimney, faListCheck } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
     const location = useLocation();
@@ -47,30 +49,41 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <Outlet />
-
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 min-h-full bg-base-200">
-                <li>
-                                <Link
-                                    className={`hover:text-white hover:bg-pink-500 hover:transition-colors hover:duration-500 ${location.pathname === '/' ? 'text-pink-400 bg-opacity-40' : ''}`}
-                                    to="/"><FontAwesomeIcon icon={faHouseChimney} /> Home
-                                </Link>
-                            </li>
+                    <li>
+                        <Link
+                            className={`hover:text-white hover:bg-pink-500 hover:transition-colors hover:duration-500 ${location.pathname === '/' ? 'text-pink-400 bg-opacity-40' : ''}`}
+                            to="/"><FontAwesomeIcon icon={faHouseChimney} /> Home
+                        </Link>
+                    </li>
 
-                            <li>
-                                <Link
-                                    className={`hover:text-white hover:bg-pink-500 hover:transition-colors hover:duration-500 ${location.pathname === '/dashboard/addModule' ? 'text-pink-400 bg-opacity-40' : ''}`}
-                                    to="/dashboard/addModule"><FontAwesomeIcon icon={faListCheck} /> Languages
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    className={`hover:text-white hover:bg-pink-500 hover:transition-colors hover:duration-500 ${location.pathname === '/dashboard/manageModule' ? 'text-pink-400 bg-opacity-40' : ''}`}
-                                    to="/dashboard/manageModule"><FontAwesomeIcon icon={faFileCirclePlus} /> Manage Module
-                                </Link>
-                            </li>
+                    <li>
+                        <Link
+                            className={`hover:text-white hover:bg-pink-500 hover:transition-colors hover:duration-500 ${location.pathname === '/dashboard/addModule' ? 'text-pink-400 bg-opacity-40' : ''}`}
+                            to="/dashboard/addModule"><FontAwesomeIcon icon={faListCheck} /> Languages
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            className={`hover:text-white hover:bg-pink-500 hover:transition-colors hover:duration-500 ${location.pathname === '/dashboard/manageModule' ? 'text-pink-400 bg-opacity-40' : ''}`}
+                            to="/dashboard/manageModule"><FontAwesomeIcon icon={faFileCirclePlus} /> Manage Module
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </div>

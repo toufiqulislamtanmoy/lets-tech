@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Pages/Provider/AuthProviders";
-const user = true;
+import useUserRole from "../../../Hooks/useUserRole";
+
 const Navbar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
+    const [role, refetch] = useUserRole();
+    console.log("Role IS: ", role);
     const submenu = [
         { id: 1, name: 'JavaScript' },
         { id: 2, name: 'Python' },
@@ -11,6 +14,10 @@ const Navbar = () => {
         { id: 4, name: 'C++' },
         { id: 5, name: 'Ruby' },
     ];
+
+    const handelLogOut = async () => {
+        logout();
+    }
 
     return (
         <div className="navbar w-full bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100 fixed z-10 lg:px-10">
@@ -76,20 +83,33 @@ const Navbar = () => {
                                     </div>
                                 </label>
                                 <ul tabIndex={0} className="z-20 menu menu-sm dropdown-content mt-3 p-2 shadow rounded-box w-52 bg-base-100">
-                                    <li>
-                                        <Link to="/userdashboard/userCart" className="justify-between">
-                                            Profile
-                                            <span className="badge">New</span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/dashboard/addModule" className="justify-between">
-                                            Admin Panel
-                                            <span className="badge">New</span>
-                                        </Link>
-                                    </li>
 
-                                    <li><button >Logout</button></li>
+                                    {
+                                        role?.role === 'admin' ?
+                                            <>
+                                                <li>
+                                                    <Link to="/dashboard/addModule" className="justify-between">
+                                                        Admin Panel
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link to="/userdashboard/userCart" className="justify-between">
+                                                        Profile
+                                                        <span className="badge">New</span>
+                                                    </Link>
+                                                </li>
+                                            </>
+                                            :
+
+                                            <li>
+                                                <Link to="/userdashboard/userCart" className="justify-between">
+                                                    Profile
+                                                    <span className="badge">New</span>
+                                                </Link>
+                                            </li>
+                                    }
+
+                                    <li><button onClick={handelLogOut}>Logout</button></li>
                                 </ul>
                             </div>
                         </div>

@@ -9,6 +9,7 @@ import Dashboard from "../Layout/Dashboard";
 import AddModule from "../Pages/Admin/AddLanguages/AddLanguages";
 import Login from "../Pages/Authentication/Login";
 import Signup from "../Pages/Authentication/Signup";
+import PrivetRoute from "../Pages/Provider/PrivetRoute";
 
 const router = createBrowserRouter([
     {
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: <PrivetRoute><Dashboard /></PrivetRoute>,
         // errorElement: <NotFound/>,
         children: [
             {

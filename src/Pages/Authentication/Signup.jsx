@@ -32,11 +32,12 @@ const Signup = () => {
                             name,
                             email,
                             profile_pic: imgurl,
-                            role: "user"
+                            role: "user",
+                            points:0
                         }
                         /********Insert user details in the database********/
 
-                        fetch('https://e-shopy-server.vercel.app/users', {
+                        fetch('http://localhost:5000/users', {
                             method: "POST",
                             headers: {
                                 'content-type': 'application/json'
@@ -51,7 +52,7 @@ const Signup = () => {
                                     icon: 'success',
                                     title: 'Account create successfully',
                                 })
-                                navigate("/signin", { replace: true });
+                                navigate("/login", { replace: true });
                             });
 
 

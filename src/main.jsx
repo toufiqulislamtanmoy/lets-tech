@@ -7,6 +7,7 @@ import router from './Routes/Routes';
 import AuthProviders from './Pages/Provider/AuthProviders';
 
 
+
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')).render(

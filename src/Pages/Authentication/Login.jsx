@@ -3,9 +3,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import loginanimation from "../../assets/animation/loginanimation.json"
 import { FcGoogle } from "react-icons/fc";
-import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProviders";
 import Swal from "sweetalert2";
+import { useContext } from "react";
 const Login = () => {
     const { register, watch, handleSubmit, formState: { errors } } = useForm();
     const location = useLocation();
@@ -27,7 +27,8 @@ const Login = () => {
                 name: user.displayName,
                 email: user.email,
                 profile_pic: user.photoURL,
-                role: "user"
+                role: "user",
+                points: 0
             }
             fetch("http://localhost:5000/users", {
                 method: "POST",
@@ -75,7 +76,6 @@ const Login = () => {
             console.log(user);
             navigate(destination, { replace: true })
             Swal.fire({
-                position: 'top-end',
                 icon: 'success',
                 title: 'Login Successful',
                 // title: `${destination}`,
