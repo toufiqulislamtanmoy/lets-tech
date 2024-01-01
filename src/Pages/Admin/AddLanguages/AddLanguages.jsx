@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import useAllLanguge from '../../../Hooks/useAllLanguge';
 import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 
 const AddLanguages = () => {
@@ -82,7 +83,7 @@ const AddLanguages = () => {
             <div className="flex justify-between items-center">
               <span className="text-lg font-semibold">{tutorial.langName}</span>
               <div className="flex items-center space-x-2">
-                <button
+                <Link to={`/dashboard/addModule/${tutorial._id}`}
                   className="text-green-500 hover:text-green-700"
                   onClick={() => {
                     // Implement add tutorial logic
@@ -90,7 +91,7 @@ const AddLanguages = () => {
                   }}
                 >
                   <FontAwesomeIcon icon={faPlus} />
-                </button>
+                </Link>
                 <button
                   className="text-red-500 hover:text-red-700"
                   onClick={() => handleDeleteLanguage(tutorial._id)}

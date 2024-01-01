@@ -88,7 +88,7 @@ const Navbar = () => {
                                         role?.role === 'admin' ?
                                             <>
                                                 <li>
-                                                    <Link to="/dashboard/addModule" className="justify-between">
+                                                    <Link to="/dashboard/addLanguage" className="justify-between">
                                                         Admin Panel
                                                     </Link>
                                                 </li>
