@@ -1,44 +1,23 @@
 import { Link } from 'react-router-dom';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useAllLanguge from '../../Hooks/useAllLanguge';
 const Home = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const programmingLanguagesData = [
-        {
-            id: 1,
-            name: 'JavaScript',
-            icon:"https://i.ibb.co/gSWKN4J/js.png"
+    const { language, refetch } = useAllLanguge();
+    const [filteredLanguages, setFilteredLanguages] = useState([]);
 
-        },
-        {
-            id: 2,
-            name: 'Python',
-            icon:"https://i.ibb.co/88mpZsS/python.png"
-        },
-        {
-            id: 3,
-            name: 'Java',
-            icon:"https://i.ibb.co/mFbhZX7/java.png"
-        },
-        {
-            id: 4,
-            name: 'C++',
-            icon:"https://i.ibb.co/6Z4yFb9/c.png"
-        },
-        {
-            id: 5,
-            name: 'Ruby',
-            icon:"https://i.ibb.co/MgMyqdG/ruby.png"
-        },
-    ];
+    // Update filteredLanguages when language changes
+    useEffect(() => {
+        setFilteredLanguages(language);
+    }, [language]);
 
-    const [filteredLanguages, setFilteredLanguages] = useState(programmingLanguagesData);
     const handleSearch = (event) => {
         const term = event.target.value.toLowerCase();
         setSearchTerm(term);
 
-        const filtered = programmingLanguagesData.filter(language =>
-            language.name.toLowerCase().includes(term)
+        const filtered = language.filter((lang) =>
+            lang.langName.toLowerCase().includes(term)
         );
 
         setFilteredLanguages(filtered);
@@ -64,19 +43,20 @@ const Home = () => {
                     <div className="mt-8">
                         <h2 className="text-2xl font-bold mb-3">Programming Languages</h2>
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 my-10">
-                            { filteredLanguages.length > 0 ?
-                            
-                            filteredLanguages.map((language) => (
-                                <Link key={language.id} to={`/tutorialdetails/${language.id}`}>
-                                    <div className='flex gap-5 justify-center items-center'>
-                                        <img className='w-1/3' src={language.icon} alt="Not Found" />
-                                        <h3 className="text-xl font-bold w-2/3">{language.name}</h3>
-                                        <hr className="my-3" />
-                                    </div>
-                                </Link>
-                            )) :
-                            <div className='text-center w-full'>No Tutorial Found</div>
-                        }
+                            {filteredLanguages.length > 0 ? (
+                                filteredLanguages.map((language) => (
+                                    <Link key={language._id} to={`/tutorialdetails/${language._id}`}>
+                                        <div className='flex gap-5 justify-center items-center'>
+                                            <img className='w-1/3' src={language.thumbUrl} alt="Not Found" />
+                                            <h3 className="text-xl font-bold w-2/3">{language.langName}</h3>
+                                            <hr className="my-3" />
+                                        </div>
+                                    </Link>
+                                ))
+                            ) : (
+                                <div className='text-center w-full'>No Tutorial Found</div>
+                            )}
+
                         </div>
                     </div>
                 </div>

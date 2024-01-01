@@ -1,24 +1,17 @@
-// AddLanguages.js
-import { useState, useEffect } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import useAllLanguge from '../../../Hooks/useAllLanguge';
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 
 const AddLanguages = () => {
-
+  const [axiosSecure] = useAxiosSecure();
   const { language, refetch } = useAllLanguge();
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
-  // console.log(language);
-
-
-  useEffect(() => {
-    // Fetch tutorial list from your database and update the state
-    // Example: fetchTutorials().then(data => setTutorialList(data));
-  }, []);
-
 
   const onSubmit = data => {
     fetch('http://localhost:5000/addLang', {
@@ -48,6 +41,37 @@ const AddLanguages = () => {
       });
   }
 
+  const handleDeleteLanguage = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/delete-language/${id}`).then(data => {
+          refetch();
+          if (data.data.deletedCount > 0) {
+            toast.error('Language Remove From The List', {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
+          }
+        })
+      }
+    })
+  }
+
   return (
     <div className="container mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
       <h1 className="text-3xl font-bold mb-6">Listed Languages</h1>
@@ -59,15 +83,6 @@ const AddLanguages = () => {
               <span className="text-lg font-semibold">{tutorial.langName}</span>
               <div className="flex items-center space-x-2">
                 <button
-                  className="text-blue-500 hover:text-blue-700"
-                  onClick={() => {
-                    // Implement update tutorial logic
-                    console.log(`Updating tutorial: ${tutorial.langName}`);
-                  }}
-                >
-                  <FontAwesomeIcon icon={faEdit} />
-                </button>
-                <button
                   className="text-green-500 hover:text-green-700"
                   onClick={() => {
                     // Implement add tutorial logic
@@ -78,10 +93,7 @@ const AddLanguages = () => {
                 </button>
                 <button
                   className="text-red-500 hover:text-red-700"
-                  onClick={() => {
-                    // Implement add tutorial logic
-                    console.log(`Adding tutorial: ${tutorial.langName}`);
-                  }}
+                  onClick={() => handleDeleteLanguage(tutorial._id)}
                 >
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
