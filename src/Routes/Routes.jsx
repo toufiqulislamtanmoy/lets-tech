@@ -11,6 +11,7 @@ import Signup from "../Pages/Authentication/Signup";
 import PrivetRoute from "../Pages/Provider/PrivetRoute";
 import AddLanguages from "../Pages/Admin/AddLanguages/AddLanguages";
 import AddModule from "../Pages/Admin/AddModule/AddModule";
+import QuestionsList from "../Pages/QustionsList/QuestionsList";
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: "/signup",
                 element: <Signup />
+            },
+            {
+                path: "/questions",
+                element: <QuestionsList />
             },
             
         ]

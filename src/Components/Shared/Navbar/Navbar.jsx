@@ -59,7 +59,7 @@ const Navbar = () => {
                             </ul>
                         </details>
                     </li>
-                    <li><Link to="/askQuestion">Ask Question</Link></li>
+                    <li><Link to="/questions">Ask Question</Link></li>
                 </ul>
             </div>
 

@@ -2,21 +2,60 @@ import { useForm } from 'react-hook-form';
 import JoditEditor from 'jodit-react';
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import { toast } from 'react-toastify';
 
 const AddModule = () => {
-    const {id} = useParams();
-    console.log(id);
-    const { handleSubmit, register, formState: { errors } } = useForm();
+    const { id } = useParams();
+    const [axiosSecure] = useAxiosSecure();
+    const { handleSubmit, register, reset, formState: { errors } } = useForm();
     const editor = useRef(null);
     const [textContent, setContent] = useState("")
     const onSubmit = (data) => {
-        const newContent = {...data,textContent,langID : id};
+        const newContent = { ...data, textContent, langID: id };
+        axiosSecure.post('http://localhost:5000/add-module', newContent, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                // reset();
+                if (response?.data?.message === "You Already Added") {
+                    toast.warn(response?.data?.message, {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "dark",
+                    });
+                  } else {
+                    reset();
+                    setContent('');
+                    toast.success("Module Added Successfully", {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                      });
+                  }
+                console.log(response);
+            })
+            .catch(error => {
+                console.error('Error creating account:', error);
+            });
         console.log(newContent);
     };
 
     return (
         <div className="container mx-auto mt-8 p-4 md:p-8">
-            <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+            <form onSubmit={handleSubmit(onSubmit)} className="mx-auto bg-white p-6 rounded-md shadow-md">
                 <div className="mb-4">
                     <label htmlFor="title" className="block text-sm font-bold mb-2 text-gray-600">
                         Content Module Title
@@ -52,11 +91,11 @@ const AddModule = () => {
                     <JoditEditor
                         ref={editor}
                         value={textContent}
-                        tabIndex={1} // tabIndex of textarea
-                        onChange={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                        tabIndex={1}
+                        onChange={newContent => setContent(newContent)} 
 
                     />
-                    
+
                 </div>
 
                 <div className="mt-4">
