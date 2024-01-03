@@ -22,16 +22,16 @@ const AddModule = () => {
                 // reset();
                 if (response?.data?.message === "You Already Added") {
                     toast.warn(response?.data?.message, {
-                      position: "top-center",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "dark",
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
                     });
-                  } else {
+                } else {
                     reset();
                     setContent('');
                     toast.success("Module Added Successfully", {
@@ -43,8 +43,8 @@ const AddModule = () => {
                         draggable: true,
                         progress: undefined,
                         theme: "dark",
-                      });
-                  }
+                    });
+                }
                 console.log(response);
             })
             .catch(error => {
@@ -92,7 +92,7 @@ const AddModule = () => {
                         ref={editor}
                         value={textContent}
                         tabIndex={1}
-                        onChange={newContent => setContent(newContent)} 
+                        onChange={newContent => setContent(newContent)}
 
                     />
 

@@ -31,9 +31,9 @@ const Signup = () => {
                         const userDetails = {
                             name,
                             email,
-                            profile_pic: imgurl,
+                            photoURL: imgurl,
                             role: "user",
-                            points:0
+                            points: 0
                         }
                         /********Insert user details in the database********/
 

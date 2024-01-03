@@ -8,8 +8,8 @@ const Footer = () => {
             <div className="container mx-auto p-8">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="mb-4 md:mb-0">
-                        <img src="/path/to/logo.png" alt="Logo" className="h-12 w-12 mb-2" />
-                        <span className="text-xl font-bold">Your Company</span>
+                        <img src="/path/to/logo.png" alt="Not Found" className="h-12 w-12 mb-2" />
+                        <span className="text-xl font-bold">Tech Learn</span>
                     </div>
                     <div className="space-y-4">
                         <Link to="/home" className="block hover:text-gray-800">Home</Link>
