@@ -131,7 +131,7 @@ const Signup = () => {
                                 {errors.password?.type === 'required' && <span className="text-red-500">This field is required</span>}
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn btn bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-all  duration-300 delay-100">Sign Up</button>
+                                <button className="btn bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-all  duration-300 delay-100">Sign Up</button>
                             </div>
                         </form>
                     </div>

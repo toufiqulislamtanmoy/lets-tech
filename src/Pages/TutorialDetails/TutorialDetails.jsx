@@ -1,93 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-// Dummy data for modules
-const modulesData = [
-    {
-        id: 1,
-        title: 'Introduction',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-        content: `
-        What is React?
-React is a JavaScript library for building user interfaces. Developed and maintained by Facebook, React allows developers to create interactive and dynamic UIs with ease. It is widely used for building single-page applications where user interfaces need to be highly responsive.
-
-Key Features of React
-Component-Based Architecture: React follows a component-based architecture. UIs are divided into reusable and independent components, making it easier to manage and maintain code.
-
-Virtual DOM: React uses a virtual DOM to optimize updates and improve performance. When data changes, React updates a virtual DOM first and then efficiently updates only the necessary parts of the actual DOM.
-
-JSX (JavaScript XML): React uses JSX, a syntax extension for JavaScript. JSX allows you to write HTML within JavaScript code, making it more readable and convenient.
-
-Unidirectional Data Flow: React follows a unidirectional data flow, meaning data changes flow in a single direction—from parent components to child components. This makes it easier to understand and debug code.
-        `
-        ,
-    },
-    {
-        id: 2,
-        title: 'Basic Concepts',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-        content: "Hello, I'm Good",
-    },
-    {
-        id: 3,
-        title: 'Advanced Techniques',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-        content: "Lorem Ipsum Dolor Sit Amet",
-    },
-    {
-        id: 4,
-        title: 'React Hooks',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
-        content: "Consectetur Adipiscing Elit",
-    },
-    {
-        id: 5,
-        title: 'State Management',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-        content: "Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua",
-    },
-    {
-        id: 6,
-        title: 'Debugging Tips',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-        content: "Ut Enim Ad Minim Veniam",
-    },
-    {
-        id: 7,
-        title: 'API Integration',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBluffs.mp4',
-        content: "Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit",
-    },
-    {
-        id: 8,
-        title: 'Responsive Design',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun2.mp4',
-        content: "Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua",
-    },
-    {
-        id: 9,
-        title: 'Authentication Strategies',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides2.mp4',
-        content: "Ut Enim Ad Minim Veniam, Quis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo Consequat",
-    },
-    {
-        id: 10,
-        title: 'Database Management',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns2.mp4',
-        content: "Duis Aute Irure Dolor In Reprehenderit In Voluptate Velit Esse Cillum Dolore Eu Fugiat Nulla Pariatur",
-    },
-    {
-        id: 11,
-        title: 'Deployment Best Practices',
-        videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes2.mp4',
-        content: "Excepteur Sint Occaecat Cupidatat Non Proident, Sunt In Culpa Qui Officia Deserunt Mollit Anim Id Est Laborum",
-    }
-];
-
+import { useParams } from 'react-router-dom';
+import usePml from '../../Hooks/usePml';
+import DOMPurify from 'dompurify';
 
 const TutorialDetails = () => {
-    const [selectedModule, setSelectedModule] = useState(modulesData[0]);
+    const { id } = useParams();
+    const { pml } = usePml(id);
+    console.log(pml);
+    const [selectedModule, setSelectedModule] = useState(pml[0] || []);
     const [selectedTab, setSelectedTab] = useState(0);
 
     const handleModuleClick = (module) => {
@@ -98,21 +21,32 @@ const TutorialDetails = () => {
         setSelectedTab(newValue);
     };
 
+    useEffect(() => {
+        // Use a temporary DOM element to parse and manipulate the HTML safely
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = selectedModule.textContent;
+
+        // Sanitize HTML content using DOMPurify
+        const sanitizedHTML = DOMPurify.sanitize(tempDiv.innerHTML);
+
+        // Update the selectedModule with the sanitized HTML content
+        setSelectedModule((prevModule) => ({ ...prevModule, sanitizedHTML }));
+    }, [selectedModule.textContent]);
+
     return (
         <div className="h-full max-w-6xl mx-auto lg:flex px-5 lg:px-0">
-
             {/* Tutorial Content */}
             <div className="lg:w-3/4">
                 {selectedTab === 0 && (
                     <div>
-                        <h1>{selectedModule.title}</h1>
-                        <p>{selectedModule.content}</p>
+                        <h1 className='text-2xl font-bold my-5'>{selectedModule.title}</h1>
+                        <div dangerouslySetInnerHTML={{ __html: selectedModule.sanitizedHTML }} />
                     </div>
                 )}
                 {selectedTab === 1 && (
                     <div>
                         <ReactPlayer
-                            url={selectedModule.videoUrl}
+                            url={selectedModule?.tutorialVideoURL}
                             height={window.innerWidth > 600 ? 450 : 250}
                             width="100%"
                             controls={true}
@@ -122,7 +56,7 @@ const TutorialDetails = () => {
                                 },
                             }}
                         />
-                        <h1>{selectedModule.title}</h1>
+                        <h1>{selectedModule?.title}</h1>
                     </div>
                 )}
             </div>
@@ -141,17 +75,17 @@ const TutorialDetails = () => {
                     <Tab label="Video" />
                 </Tabs>
 
-                <ul className='overflow-y-auto h-[50vh] w-full px-5 scrollbar my-5'>
+                <ul className="overflow-y-auto h-[50vh] w-full px-5 scrollbar my-5">
                     {/* Dynamic rendering of modules */}
-                    {modulesData.map((module) => (
-                        <li key={module.id} className="mb-2">
-                            {/* Using react-router-dom Link for navigation */}
+                    {pml.map((module, index) => (
+                        <li key={module._id} className="mb-2">
                             <div
-                                className={`flex items-center cursor-pointer ${selectedModule.id === module.id ? 'font-bold' : ''}`}
+                                className={`flex items-center cursor-pointer ${selectedModule._id === module._id ? 'font-bold' : ''
+                                    }`}
                                 onClick={() => handleModuleClick(module)}
                             >
                                 <span className="bg-green-500 text-white px-2 py-1 rounded mr-2">
-                                    {module.id}
+                                    {index + 1}
                                 </span>
                                 {module.title}
                             </div>

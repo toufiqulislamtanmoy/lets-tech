@@ -1,19 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 
-const useALanguage = (id) => {
+const usePml = (id) => {
     const [axiosSecure] = useAxiosSecure();
-    const { data: singlelanguage = [], isLoading: loading, refetch } = useQuery({
-        queryKey: ['singlelanguage'],
+    const { data: pml = [], isLoading: loading, refetch } = useQuery({
+        queryKey: ['pml'],
         queryFn: async () => {
             // const res = await fetch('http://localhost:5000/dispLang');
             // return res.json();
-            const response = await axiosSecure(`single-language/${id}`)
+            const response = await axiosSecure(`pml/${id}`)
             return response.data;
         }
     })
 
-    return { singlelanguage, loading, refetch };
-};
+    return { pml, loading, refetch };
+}
 
-export default useALanguage;
+export default usePml

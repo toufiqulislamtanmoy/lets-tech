@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import useAllLanguge from '../../Hooks/useAllLanguge';
 const Home = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const { language, refetch } = useAllLanguge();
+    const { language } = useAllLanguge();
     const [filteredLanguages, setFilteredLanguages] = useState([]);
 
     // Update filteredLanguages when language changes
