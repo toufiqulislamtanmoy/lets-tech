@@ -1,29 +1,42 @@
 import { useForm } from "react-hook-form";
-import useAllQuestions from "../../Hooks/useAllQuestions";
-import { useContext, useState } from "react";
+
+import { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../Provider/AuthProviders";
 import { toast } from "react-toastify";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import useCopq from "../../Hooks/useCopq";
+import { format } from "date-fns";
 
-const Comments = () => {
-    const { questions } = useAllQuestions();
+
+const Comments = ({ qid }) => {
     const { register, handleSubmit, reset } = useForm();
     const [axiosSecure] = useAxiosSecure();
     const { user } = useContext(AuthContext);
+    const [commentToggole, setCommentToggole] = useState(false);
+    const [copq, setCopq] = useState([]);
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const response = await axiosSecure.get(`http://localhost:5000/copq/${qid}`);
 
-    const { copq } = useCopq(questionId);
+                console.log(`qid => ${qid} Comments =>`, response.data);
+                setCopq(response.data)
+            } catch (error) {
+                console.error(`Error fetching comments for qid ${qid}:`, error);
+            }
+        };
+        fetchComments();
+    }, [axiosSecure, qid]);
 
-    const onSubmit = (data, e) => {
-        const questionId = e.nativeEvent.submitter.getAttribute('data-question-id');
-        // console.log(data, questionId);
+
+    const onSubmit = (data) => {
+
         const commentData = {
             commenterName: user?.displayName,
             commenterEmail: user?.email,
             commenterPhoto: user?.photoURL,
-            questionId,
+            questionId: qid,
             commentText: data?.commentText,
             timestamp: new Date().toISOString()
         }
@@ -37,6 +50,7 @@ const Comments = () => {
             .then(response => {
                 if (response?.data?.insertedId) {
                     reset();
+                    refetch();
                     toast.success("Comment added", {
                         position: "top-center",
                         autoClose: 5000,
@@ -68,69 +82,71 @@ const Comments = () => {
     }
 
     return (
-        <div className="overflow-auto max-h-screen">
-            {questions?.map((question) => (
-                <div key={question._id} className="bg-white shadow-md p-4 mb-4 rounded">
-                    <div className="flex items-center mb-2">
-                        <img
-                            src={question?.photoURL}
-                            alt={`${question?.name}'s profile`}
-                            className="h-8 w-8 rounded-full mr-2"
-                        />
-                        <div>
-                            <span className="font-bold">{question?.name}</span>
-                            <div className="text-gray-500">
-                                {new Date(question?.timestamp).toLocaleString()}
-                            </div>
-                        </div>
-                    </div>
-                    <p className="text-gray-700">{question.question}</p>
-
+        <div className="">
+            <div className="mx-3 lg:mx-10">
+                {/* <h2>Show Comment</h2> */}
+                <button onClick={() => setCommentToggole(!commentToggole)}>
+                    <h2 className="flex items-center gap-2 text-right">
+                        <FontAwesomeIcon icon={faComment} />
+                        <h3>{copq?.length}</h3>
+                    </h2>
+                </button>
+            </div>
+            {commentToggole &&
+                <div className="bg-white shadow-md p-4 mb-4 rounded space-y-10">
                     {/* Display Comments */}
-                    {/* {comments[question._id] && (
-                        <div className="mt-4">
-                            <strong>Comments:</strong>
-                            <ul>
-                                {comments[question._id].map((comment, index) => (
-                                    <li key={index} className="my-5 shadow-lg border-2 p-3 border-red-50">
-                                        <div className="flex gap-2 items-center">
-                                            <div><img src={user?.photoURL} alt="" className="w-9 h-9 rounded-full" /></div>
-                                            <div>
-                                                <h2>{user?.displayName}</h2>
-                                                <p>12:01</p>
-                                            </div>
-                                        </div>
-                                        <h3 className="m-3">{comment}</h3>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )} */}
+                    {
+                        copq.map(comment =>
+                            <div key={comment._id} className="shadow-lg p-3">
+                                <div className="flex gap-2 items-center">
+                                    <div>
+                                        <img src={comment?.commenterPhoto} className="w-10 h-10 rounded-full" alt="" />
+                                    </div>
+                                    <div>
+                                        <h2 >{comment?.commenterName}</h2>
+                                        <p className="text-xs">
+                                            {format(
+                                                new Date(comment?.timestamp),
+                                                "MMM dd"
+                                            )
+                                            }
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <p className="ml-5 my-2" key={comment._id}>{comment?.commentText}</p>
+                            </div>
+                        )
+                    }
 
                     {/* Comment Form */}
                     <form
                         onSubmit={handleSubmit(onSubmit)}
                         className="mt-4 border-t pt-4"
-                        data-question-id={question._id}
+
                     >
-                        <div className="flex items-center">
-                            <textarea
-                                {...register('commentText')}
-                                placeholder="Add a comment..."
-                                className="w-full resize-none border rounded-md p-2 mr-2 focus:outline-none focus:border-blue-500"
-                            />
-                            <button
-                                type="submit"
-                                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
-                                title="Add Comment"
-                                data-question-id={question._id}
-                            >
-                                <FontAwesomeIcon icon={faCheck} />
-                            </button>
+                        <div className="">
+                            <div className="flex-grow">
+                                <textarea
+                                    {...register('commentText')}
+                                    placeholder="Add a comment..."
+                                    className="w-full h-[150px] resize-none border rounded-md p-2 focus:outline-none focus:border-blue-500"
+                                />
+                            </div>
+                            <div className="text-right">
+                                <button
+                                    type="submit"
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 h-[100%]"
+                                    title="Add Comment"
+                                >
+                                    <FontAwesomeIcon icon={faPaperPlane} />
+                                </button>
+                            </div>
                         </div>
+
                     </form>
                 </div>
-            ))}
+            }
         </div>
     );
 };

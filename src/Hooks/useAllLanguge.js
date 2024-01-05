@@ -3,8 +3,8 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useAllLanguge = () => {
     const [axiosSecure] = useAxiosSecure();
-    const { data: language = [], isLoading: loading, refetch } = useQuery({
-        queryKey: ['language'],
+    const { data: languages = [], isLoading: loading, refetch } = useQuery({
+        queryKey: ['languages'],
         queryFn: async () => {
             // const res = await fetch('http://localhost:5000/dispLang');
             // return res.json();
@@ -13,7 +13,7 @@ const useAllLanguge = () => {
         }
     })
 
-    return {language, loading, refetch};
+    return { languages, loading, refetch };
 };
 
 export default useAllLanguge;

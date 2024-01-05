@@ -7,7 +7,7 @@ import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import useAllQuestions from '../../Hooks/useAllQuestions';
 import { useForm } from 'react-hook-form';
 import Comments from './Comments';
-
+import { format } from "date-fns";
 
 
 const QuestionsList = () => {
@@ -112,7 +112,35 @@ const QuestionsList = () => {
                     </form>
                 </dialog>
             </div>
-            <Comments />
+            <div className="">
+                {questions?.map((question) => (
+                    <div key={question._id} className="bg-white shadow-md p-4 mb-4 rounded">
+                        <div className="flex items-center mb-2">
+                            <img
+                                src={question?.photoURL}
+                                alt={`${question?.name}'s profile`}
+                                className="h-8 w-8 rounded-full mr-2"
+                            />
+                            <div>
+                                <span className="font-bold">{question?.name}</span>
+                                <div className="text-gray-500">
+                                    <p className="text-xs">
+                                        {format(
+                                            new Date(question?.timestamp),
+                                            "MMM dd"
+                                        )
+                                        }
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <p className="text-gray-700 text-lg">{question.question}</p>
+                        <div className="divider"></div>
+                        <Comments qid={question._id} />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

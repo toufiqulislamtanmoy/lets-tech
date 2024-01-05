@@ -12,6 +12,7 @@ import PrivetRoute from "../Pages/Provider/PrivetRoute";
 import AddLanguages from "../Pages/Admin/AddLanguages/AddLanguages";
 import AddModule from "../Pages/Admin/AddModule/AddModule";
 import QuestionsList from "../Pages/QustionsList/QuestionsList";
+import QuestionDetails from "../Pages/QustionsList/QuestionDetails";
 
 const router = createBrowserRouter([
     {
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
                 path: "/questions",
                 element: <QuestionsList />
             },
-            
+            {
+                path: "/questions-details/:qid",
+                element: <QuestionDetails />
+            },
+
         ]
     },
     {

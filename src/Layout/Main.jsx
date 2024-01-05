@@ -10,16 +10,16 @@ const Main = () => {
     console.log(location)
     const newLayout = location.pathname.includes('login') || location.pathname.includes('signup')
     const isLoading = useLoading(3000);
-
+    const homeLayout = location.pathname.includes('/')
     return (
         <div>
-            {isLoading ? <Hold/>: (
+            {isLoading ? <Hold /> : (
                 <>
                     {newLayout || <Navbar />}
-                    <div className="py-20">
+                    <div className="pt-28">
                         <Outlet />
                     </div>
-                    {newLayout || <Footer />}
+                    {newLayout || homeLayout ? <Footer /> : null}
                     <ToastContainer></ToastContainer>
                 </>
             )}

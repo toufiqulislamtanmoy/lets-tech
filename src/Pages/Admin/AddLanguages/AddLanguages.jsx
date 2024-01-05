@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 const AddLanguages = () => {
   const [axiosSecure] = useAxiosSecure();
-  const { language, refetch } = useAllLanguge();
+  const { languages, refetch } = useAllLanguge();
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = data => {
@@ -66,7 +66,7 @@ const AddLanguages = () => {
               draggable: true,
               progress: undefined,
               theme: "dark",
-              });
+            });
           }
         })
       }
@@ -78,7 +78,7 @@ const AddLanguages = () => {
       <h1 className="text-3xl font-bold mb-6">Listed Languages</h1>
 
       <ul className="grid grid-cols-1 gap-4">
-        {language.map((tutorial) => (
+        {languages.map((tutorial) => (
           <li key={tutorial._id} className="bg-gray-100 p-4 rounded-md">
             <div className="flex justify-between items-center">
               <span className="text-lg font-semibold">{tutorial.langName}</span>

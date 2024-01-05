@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileCirclePlus, faHouseChimney, faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import logo from "../assets/Logo/logo.png"
 const Dashboard = () => {
     const location = useLocation();
     // const { user } = useContext(AuthContext);
@@ -22,7 +22,9 @@ const Dashboard = () => {
                         </label>
                     </div>
                     <div className="flex-1 px-2 mx-2">
-                        <Link to="/" className="text-xl cursor-pointer text-orange-400">Tech Learn</Link>
+                        <Link to="/" className="text-xl cursor-pointer text-orange-400">
+                            <img className="w-20 h-20" src={logo} alt="" />
+                        </Link>
                     </div>
                     <div className="flex-none hidden lg:block">
                         <ul className="menu menu-horizontal">

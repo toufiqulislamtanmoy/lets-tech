@@ -2,18 +2,12 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Pages/Provider/AuthProviders";
 import useUserRole from "../../../Hooks/useUserRole";
-
+import useAllLanguge from "../../../Hooks/useAllLanguge";
+import logo from "../../../assets/Logo/logo.png";
 const Navbar = () => {
     const { user, logout } = useContext(AuthContext);
-    const [role, refetch] = useUserRole();
-    console.log("Role IS: ", role);
-    const submenu = [
-        { id: 1, name: 'JavaScript' },
-        { id: 2, name: 'Python' },
-        { id: 3, name: 'Java' },
-        { id: 4, name: 'C++' },
-        { id: 5, name: 'Ruby' },
-    ];
+    const [role] = useUserRole();
+    const { languages } = useAllLanguge();
 
     const handelLogOut = async () => {
         logout();
@@ -29,11 +23,11 @@ const Navbar = () => {
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         <li><Link to="/">Home</Link></li>
                         <li>
-                            <a>Tutorial</a>
+                            <a >Tutorial</a>
                             <ul className="p-2">
-                                {submenu.map((language) => (
-                                    <li key={language.id}>
-                                        <Link to={`/tutorialdetails/${language.id}`}>{language.name}</Link>
+                                {languages.map((language) => (
+                                    <li key={language._id}>
+                                        <Link to={`/tutorialdetails/${language._id}`}>{language.langName}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -42,24 +36,26 @@ const Navbar = () => {
                         <li><Link to="/askQuestion">Ask Question</Link></li>
                     </ul>
                 </div>
-                <Link to="/" className="text-xl cursor-pointer text-orange-400">Tech Learn</Link>
+                <Link to="/" className="text-xl cursor-pointer text-orange-400">
+                    <img className="w-20 h-20" src={logo} alt="" />
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/" className="font-extrabold text-slate-400">Home</Link></li>
                     <li>
                         <details>
-                            <summary>Tutorial</summary>
+                            <summary className=" font-extrabold text-slate-400">Tutorial</summary>
                             <ul className="p-2">
-                                {submenu.map((language) => (
-                                    <li key={language.id}>
-                                        <Link to={`/tutorialdetails/${language.id}`}>{language.name}</Link>
+                                {languages.map((language) => (
+                                    <li key={language._id}>
+                                        <Link to={`/tutorialdetails/${language._id}`}>{language.langName}</Link>
                                     </li>
                                 ))}
                             </ul>
                         </details>
                     </li>
-                    <li><Link to="/questions">Ask Question</Link></li>
+                    <li><Link className=" font-extrabold text-slate-400" to="/questions">Ask Question</Link></li>
                 </ul>
             </div>
 
@@ -114,7 +110,7 @@ const Navbar = () => {
                             </div>
                         </div>
                         :
-                        <Link to="/login" className={`hover:text-info hover:transition-colors hover:duration-500 ${location.pathname === '/signin' ? 'text-info' : ''}`}>Sign In</Link>
+                        <Link to="/login" className={`hover:text-info hover:transition-colors text-xl font-extrabold hover:duration-500 ${location.pathname === '/signin' ? 'text-info' : ''}`}>Sign In</Link>
                 }
             </div>
         </div>
