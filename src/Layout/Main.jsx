@@ -16,7 +16,7 @@ const Main = () => {
             {isLoading ? <Hold /> : (
                 <>
                     {newLayout || <Navbar />}
-                    <div className="pt-28">
+                    <div className="">
                         <Outlet />
                     </div>
                     {newLayout || homeLayout ? <Footer /> : null}

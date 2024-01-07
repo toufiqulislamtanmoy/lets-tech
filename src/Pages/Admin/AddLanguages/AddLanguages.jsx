@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
-
+import quiz from "../../../assets/Logo/quiz.png"
 
 const AddLanguages = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -82,7 +82,7 @@ const AddLanguages = () => {
           <li key={tutorial._id} className="bg-gray-100 p-4 rounded-md">
             <div className="flex justify-between items-center">
               <span className="text-lg font-semibold">{tutorial.langName}</span>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-3 ">
                 <Link to={`/dashboard/addModule/${tutorial._id}`}
                   className="text-green-500 hover:text-green-700"
                   onClick={() => {
@@ -91,6 +91,11 @@ const AddLanguages = () => {
                   }}
                 >
                   <FontAwesomeIcon icon={faPlus} />
+                </Link>
+                <Link to={`/dashboard/AddQuiz/${tutorial._id}`}
+                  className="text-green-500 hover:text-green-700"
+                >
+                  <img src={quiz} alt="Add Quiz " title='Add Quiz' className='w-5' />
                 </Link>
                 <button
                   className="text-red-500 hover:text-red-700"

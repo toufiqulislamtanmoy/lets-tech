@@ -47,7 +47,7 @@ const Home = () => {
                                 <>
                                     {filteredLanguages.map((language) => (
                                         <Link key={language._id} to={`/tutorialdetails/${language._id}`}>
-                                            <div className='flex gap-5 justify-center items-center transition-transform transform hover:scale-150'>
+                                            <div className='flex gap-5 justify-center items-center transform transition-transform  hover:scale-150'>
                                                 <img className='w-1/3' src={language.thumbUrl} alt="Not Found" />
                                                 <h3 className="text-xl font-bold w-2/3">{language.langName}</h3>
                                                 <hr className="my-3" />
@@ -55,6 +55,7 @@ const Home = () => {
                                         </Link>
                                     ))}
                                 </>
+
                             ) : (
                                 <div className='text-center w-full'>No Tutorial Found</div>
                             )}

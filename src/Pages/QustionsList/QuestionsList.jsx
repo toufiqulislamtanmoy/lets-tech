@@ -71,7 +71,7 @@ const QuestionsList = () => {
 
 
     return (
-        <div className="container mx-auto mt-8 p-4">
+        <div className="container mx-auto pt-28 pb-10">
             <div className="mb-4">
                 <div className="text-right">
                     <button

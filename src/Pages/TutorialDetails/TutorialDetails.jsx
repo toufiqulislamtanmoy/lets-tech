@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import usePml from '../../Hooks/usePml';
 import DOMPurify from 'dompurify';
 
 const TutorialDetails = () => {
     const { id } = useParams();
     const { pml } = usePml(id);
+
     console.log(pml);
     const [selectedModule, setSelectedModule] = useState(pml[0] || []);
     const [selectedTab, setSelectedTab] = useState(0);
+
 
     const handleModuleClick = (module) => {
         setSelectedModule(module);
@@ -33,8 +35,13 @@ const TutorialDetails = () => {
         setSelectedModule((prevModule) => ({ ...prevModule, sanitizedHTML }));
     }, [selectedModule.textContent]);
 
+    const moduleIndex = pml.findIndex(module => module._id === selectedModule._id);
+    const lastModule = pml.length - 1;
+
+    console.log("Is last module index: ", moduleIndex);
+    console.log("Length of the total module: ", lastModule);
     return (
-        <div className="h-full max-w-6xl mx-auto lg:flex px-5 lg:px-0">
+        <div className="pt-28 pb-10 max-w-6xl mx-auto lg:flex px-5 lg:px-0">
             {/* Tutorial Content */}
             <div className="lg:w-3/4">
                 {selectedTab === 0 && (
@@ -92,6 +99,14 @@ const TutorialDetails = () => {
                         </li>
                     ))}
                 </ul>
+                {/* display participate quiz button */}
+                {moduleIndex === lastModule && (
+                    <div className='text-center'>
+                        <Link to={`/quiz/${id}`} className="bg-green-500 text-white px-4 py-2 mt-4" >
+                            Participate Quiz
+                        </Link>
+                    </div>
+                )}
             </div>
         </div>
     );

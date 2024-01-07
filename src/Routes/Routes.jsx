@@ -13,6 +13,8 @@ import AddLanguages from "../Pages/Admin/AddLanguages/AddLanguages";
 import AddModule from "../Pages/Admin/AddModule/AddModule";
 import QuestionsList from "../Pages/QustionsList/QuestionsList";
 import QuestionDetails from "../Pages/QustionsList/QuestionDetails";
+import Quiz from "../Pages/Quiz/Quiz";
+import AddQuiz from "../Pages/Admin/AddQuiz/AddQuiz";
 
 const router = createBrowserRouter([
     {
@@ -44,6 +46,10 @@ const router = createBrowserRouter([
                 path: "/questions-details/:qid",
                 element: <QuestionDetails />
             },
+            {
+                path: "/quiz/:qid",
+                element: <Quiz />
+            },
 
         ]
     },
@@ -60,6 +66,11 @@ const router = createBrowserRouter([
                 path: "addModule/:id",
                 element: <AddModule />
             },
+            {
+                path: "AddQuiz/:id",
+                element: <AddQuiz />
+            },
+
 
         ]
 
