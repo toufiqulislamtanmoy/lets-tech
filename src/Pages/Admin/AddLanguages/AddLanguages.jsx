@@ -74,7 +74,7 @@ const AddLanguages = () => {
   }
 
   return (
-    <div className="container mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+    <div className="container mx-auto mt-28 mb-10 p-6  bg-white rounded-md shadow-md">
       <h1 className="text-3xl font-bold mb-6">Listed Languages</h1>
 
       <ul className="grid grid-cols-1 gap-4">

@@ -2,7 +2,7 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
 // import { AuthContext } from "../Pages/Provider/AuthProviders";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileCirclePlus, faHouseChimney, faListCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation, faFileCirclePlus, faHouseChimney, faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from "../assets/Logo/logo.png"
@@ -15,7 +15,7 @@ const Dashboard = () => {
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
                 {/* Navbar */}
-                <div className="w-full navbar bg-base-300">
+                <div className="navbar w-full bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100 fixed z-10 lg:px-10 ">
                     <div className="flex-none lg:hidden">
                         <label htmlFor="my-drawer-3" aria-label="open sidebar" className="btn btn-square btn-ghost">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -27,25 +27,25 @@ const Dashboard = () => {
                         </Link>
                     </div>
                     <div className="flex-none hidden lg:block">
-                        <ul className="menu menu-horizontal">
+                        <ul className="flex gap-5">
                             {/* Navbar menu content here */}
                             <li>
                                 <Link
-                                    className={`hover:text-white hover:bg-pink-500 hover:transition-colors hover:duration-500 ${location.pathname === '/' ? 'text-pink-400 bg-opacity-40' : ''}`}
-                                    to="/"><FontAwesomeIcon icon={faHouseChimney} /> Home
+                                    className={`hover:text-pink-500 hover:transition-colors hover:duration-500 ${location.pathname === '/' ? 'text-pink-400 bg-opacity-40' : ''}`}
+                                    to="/"><FontAwesomeIcon icon={faHouseChimney} className="text-xl" /> Home
                                 </Link>
                             </li>
 
                             <li>
                                 <Link
-                                    className={`hover:text-white hover:bg-pink-500 hover:transition-colors hover:duration-500 ${location.pathname === '/dashboard/addModule' ? 'text-pink-400 bg-opacity-40' : ''}`}
-                                    to="/dashboard/addLanguage"><FontAwesomeIcon icon={faListCheck} /> Add Module
+                                    className={`hover:text-pink-400  hover:transition-colors hover:duration-500 ${location.pathname === '/dashboard/addModule' ? 'text-pink-400 bg-opacity-40' : ''}`}
+                                    to="/dashboard/addLanguage"><FontAwesomeIcon className="text-xl" icon={faFileCirclePlus} /> Add Content
                                 </Link>
                             </li>
                             <li>
                                 <Link
-                                    className={`hover:text-white hover:bg-pink-500 hover:transition-colors hover:duration-500 ${location.pathname === '/dashboard/manageModule' ? 'text-pink-400 bg-opacity-40' : ''}`}
-                                    to="/dashboard/manageModule"><FontAwesomeIcon icon={faFileCirclePlus} /> Manage Module
+                                    className={`hover:text-pink-400  hover:transition-colors hover:duration-500 ${location.pathname === '/dashboard/manageModule' ? 'text-pink-400 bg-opacity-40' : ''}`}
+                                    to="/dashboard/manageModule"><FontAwesomeIcon icon={faCircleExclamation} className="text-xl" /> Manage Module
                                 </Link>
                             </li>
                         </ul>
@@ -65,7 +65,7 @@ const Dashboard = () => {
                     theme="dark"
                 />
             </div>
-            <div className="drawer-side">
+            <div className="drawer-side pt-28">
                 <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="menu p-4 w-80 min-h-full bg-base-200">
                     <li>

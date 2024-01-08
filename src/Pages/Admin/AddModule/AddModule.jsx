@@ -54,7 +54,7 @@ const AddModule = () => {
     };
 
     return (
-        <div className="container mx-auto mt-8 p-4 md:p-8">
+        <div className="container mx-auto mt-28 mb-10 p-4 md:p-8">
             <form onSubmit={handleSubmit(onSubmit)} className="mx-auto bg-white p-6 rounded-md shadow-md">
                 <div className="mb-4">
                     <label htmlFor="title" className="block text-sm font-bold mb-2 text-gray-600">
