@@ -104,8 +104,8 @@ const Navbar = () => {
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/userdashboard/userCart" className="justify-between">
-                                                        Profile
+                                                    <Link to="/progress" className="justify-between">
+                                                        Progress
                                                         <span className="badge">New</span>
                                                     </Link>
                                                 </li>
@@ -113,8 +113,8 @@ const Navbar = () => {
                                             :
 
                                             <li>
-                                                <Link to="/userdashboard/userCart" className="justify-between">
-                                                    Profile
+                                                <Link to="/progress" className="justify-between">
+                                                    Progress
                                                     <span className="badge">New</span>
                                                 </Link>
                                             </li>

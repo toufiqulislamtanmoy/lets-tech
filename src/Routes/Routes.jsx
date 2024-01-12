@@ -15,6 +15,7 @@ import QuestionsList from "../Pages/QustionsList/QuestionsList";
 import QuestionDetails from "../Pages/QustionsList/QuestionDetails";
 import Quiz from "../Pages/Quiz/Quiz";
 import AddQuiz from "../Pages/Admin/AddQuiz/AddQuiz";
+import Progress from "../Pages/Progress/Progress";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
             {
                 path: "/quiz/:qid",
                 element: <Quiz />
+            },
+            {
+                path: "/progress",
+                element: <Progress />
             },
 
         ]
