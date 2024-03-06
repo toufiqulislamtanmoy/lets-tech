@@ -15,7 +15,7 @@ const AddLanguages = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = data => {
-    fetch('http://localhost:5000/addLang', {
+    fetch('https://learn-program-server.vercel.app/addLang', {
       method: "POST",
       headers: {
         'content-type': 'application/json'
@@ -23,7 +23,7 @@ const AddLanguages = () => {
       body: JSON.stringify(data)
     }).then(res => res.json())
       .then(data => {
-        console.log(data.message);
+        // console.log(data.message);
         if (data?.message === "You Already Added") {
           toast.warn(data?.message, {
             position: "top-center",
@@ -43,7 +43,7 @@ const AddLanguages = () => {
   }
 
   const handleDeleteLanguage = (id) => {
-    console.log(id);
+    // console.log(id);
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -87,7 +87,7 @@ const AddLanguages = () => {
                   className="text-green-500 hover:text-green-700"
                   onClick={() => {
                     // Implement add tutorial logic
-                    console.log(`Adding tutorial: ${tutorial.langName}`);
+                    // console.log(`Adding tutorial: ${tutorial.langName}`);
                   }}
                 >
                   <FontAwesomeIcon icon={faPlus} />

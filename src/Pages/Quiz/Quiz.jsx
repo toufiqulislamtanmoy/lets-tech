@@ -10,7 +10,7 @@ const Quiz = () => {
     const { qid } = useParams();
     const { user } = useContext(AuthContext);
     const { singlelanguage } = useALanguage(qid);
-    console.log(singlelanguage)
+    // console.log(singlelanguage)
     const { questions } = useQuizQuestion(qid);
     const [axiosSecure] = useAxiosSecure();
     const navigate = useNavigate();
@@ -45,7 +45,7 @@ const Quiz = () => {
         }
         try {
             const response = await axiosSecure.post(`/progress`, progressData);
-            console.log(response?.data)
+            // console.log(response?.data)
             if (response?.data?.insertedId) {
                 toast.success("Quiz Submitted", {
                     position: "top-center",

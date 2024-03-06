@@ -26,7 +26,7 @@ const Signup = () => {
                 const { name, email, password } = data;
                 createUser(email, password).then((logedUser) => {
                     const newlyCreatedUser = logedUser.user;
-                    console.log(newlyCreatedUser);
+                    // console.log(newlyCreatedUser);
                     updateUserProfile(name, imgurl).then(() => {
                         const userDetails = {
                             name,
@@ -37,7 +37,7 @@ const Signup = () => {
                         }
                         /********Insert user details in the database********/
 
-                        fetch('http://localhost:5000/users', {
+                        fetch('https://learn-program-server.vercel.app/users', {
                             method: "POST",
                             headers: {
                                 'content-type': 'application/json'
@@ -47,7 +47,7 @@ const Signup = () => {
                             .then(data => {
                                 reset();
                                 logout();
-                                console.log(data)
+                                // console.log(data)
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Account create successfully',

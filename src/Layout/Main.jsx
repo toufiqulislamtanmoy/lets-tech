@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const Main = () => {
     const location = useLocation();
-    console.log(location)
+    // console.log(location)
     const newLayout = location.pathname.includes('login') || location.pathname.includes('signup')
     const isLoading = useLoading(3000);
     const homeLayout = location.pathname.includes('/')

@@ -6,7 +6,7 @@ const useALanguage = (id) => {
     const { data: singlelanguage = [], isLoading: loading, refetch } = useQuery({
         queryKey: ['singlelanguage'],
         queryFn: async () => {
-            // const res = await fetch('http://localhost:5000/dispLang');
+            // const res = await fetch('https://learn-program-server.vercel.app/dispLang');
             // return res.json();
             const response = await axiosSecure(`single-language/${id}`)
             return response.data;

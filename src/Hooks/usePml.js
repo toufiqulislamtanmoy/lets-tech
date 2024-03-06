@@ -6,7 +6,7 @@ const usePml = (id) => {
     const { data: pml = [], isLoading: loading, refetch } = useQuery({
         queryKey: ['pml'],
         queryFn: async () => {
-            // const res = await fetch('http://localhost:5000/dispLang');
+            // const res = await fetch('https://learn-program-server.vercel.app/dispLang');
             // return res.json();
             const response = await axiosSecure(`pml/${id}`)
             return response.data;

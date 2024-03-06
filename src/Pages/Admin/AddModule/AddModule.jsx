@@ -13,7 +13,7 @@ const AddModule = () => {
     const [textContent, setContent] = useState("")
     const onSubmit = (data) => {
         const newContent = { ...data, textContent, langID: id };
-        axiosSecure.post('http://localhost:5000/add-module', newContent, {
+        axiosSecure.post('https://learn-program-server.vercel.app/add-module', newContent, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -45,12 +45,12 @@ const AddModule = () => {
                         theme: "dark",
                     });
                 }
-                console.log(response);
+                // console.log(response);
             })
             .catch(error => {
                 console.error('Error creating account:', error);
             });
-        console.log(newContent);
+        // console.log(newContent);
     };
 
     return (

@@ -2,22 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* Global styles or in your component CSS file */
 ::-webkit-scrollbar {
-    width: 7px; /* Adjust as needed */
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background-color: #bbbbbb; /* Your desired thumb color */
-    border-radius: 17px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background-color: #e5e7eb; /* Your desired track color */
-    border-radius: 17px;
-  }
-  
-  /* For Firefox */
-  scrollbar-color: #34d399 #e5e7eb;
-  
+  width: 7px; /* Adjust as needed */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #bbbbbb; /* Your desired thumb color */
+  border-radius: 17px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #e5e7eb; /* Your desired track color */
+  border-radius: 17px;
+}
+
+/* For Firefox */
+scrollbar-color: #34d399 #e5e7eb;

@@ -17,7 +17,7 @@ const QuestionsList = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     console.log(user)
     const onSubmit = ({ question }) => {
-        console.log({ question });
+        // console.log({ question });
         const questionData = {
             question,
             name: user.displayName,
@@ -26,7 +26,7 @@ const QuestionsList = () => {
             timestamp: new Date().toISOString()
         }
 
-        axiosSecure.post('http://localhost:5000/add-question', questionData, {
+        axiosSecure.post('https://learn-program-server.vercel.app/add-question', questionData, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -58,7 +58,7 @@ const QuestionsList = () => {
                     });
 
                 }
-                console.log(response);
+                // console.log(response);
             })
             .catch(error => {
                 console.error('Error creating account:', error);

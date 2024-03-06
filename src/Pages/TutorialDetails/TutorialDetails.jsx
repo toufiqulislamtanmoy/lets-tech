@@ -5,13 +5,19 @@ import Tab from '@mui/material/Tab';
 import { Link, useParams } from 'react-router-dom';
 import usePml from '../../Hooks/usePml';
 import DOMPurify from 'dompurify';
+import Hold from '../../Components/Hold/Hold';
 
 const TutorialDetails = () => {
     const { id } = useParams();
     const { pml } = usePml(id);
 
-    console.log(pml);
-    const [selectedModule, setSelectedModule] = useState(pml[0] || []);
+    const [selectedModule, setSelectedModule] = useState([]);
+    // Check if pml[0] exists before assigning it to selectedModule
+    useEffect(() => {
+        if (pml && pml.length > 0) {
+            setSelectedModule(pml[0]);
+        }
+    }, [pml]);
     const [selectedTab, setSelectedTab] = useState(0);
 
 
@@ -26,7 +32,7 @@ const TutorialDetails = () => {
     useEffect(() => {
         // Use a temporary DOM element to parse and manipulate the HTML safely
         const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = selectedModule.textContent;
+        tempDiv.innerHTML = selectedModule?.textContent;
 
         // Sanitize HTML content using DOMPurify
         const sanitizedHTML = DOMPurify.sanitize(tempDiv.innerHTML);
@@ -38,32 +44,44 @@ const TutorialDetails = () => {
     const moduleIndex = pml.findIndex(module => module._id === selectedModule._id);
     const lastModule = pml.length - 1;
 
-    console.log("Is last module index: ", moduleIndex);
-    console.log("Length of the total module: ", lastModule);
     return (
         <div className="pt-28 pb-10 max-w-6xl mx-auto lg:flex px-5 lg:px-0">
             {/* Tutorial Content */}
             <div className="lg:w-3/4">
                 {selectedTab === 0 && (
                     <div>
-                        <h1 className='text-2xl font-bold my-5'>{selectedModule.title}</h1>
-                        <div dangerouslySetInnerHTML={{ __html: selectedModule.sanitizedHTML }} />
+                        {selectedModule?.sanitizedHTML !== "undefined" ? (
+                            <>
+                                {console.log("selectedModule----->", selectedModule?.sanitizedHTML)}
+                                <h1 className='text-2xl font-bold my-5'>{selectedModule.title}</h1>
+                                <div dangerouslySetInnerHTML={{ __html: selectedModule.sanitizedHTML }} />
+                            </>
+                        ) :
+                            <Hold />
+
+                        }
                     </div>
                 )}
                 {selectedTab === 1 && (
                     <div>
-                        <ReactPlayer
-                            url={selectedModule?.tutorialVideoURL}
-                            height={window.innerWidth > 600 ? 450 : 250}
-                            width="100%"
-                            controls={true}
-                            config={{
-                                youtube: {
-                                    playerVars: { showinfo: 1 },
-                                },
-                            }}
-                        />
-                        <h1>{selectedModule?.title}</h1>
+                        {selectedModule ?
+
+                            <>
+                                <ReactPlayer
+                                    url={selectedModule?.tutorialVideoURL}
+                                    height={window.innerWidth > 600 ? 450 : 250}
+                                    width="100%"
+                                    controls={true}
+                                    config={{
+                                        youtube: {
+                                            playerVars: { showinfo: 1 },
+                                        },
+                                    }}
+                                />
+                                <h1>{selectedModule?.title}</h1>
+                            </>
+                            : <Hold />
+                        }
                     </div>
                 )}
             </div>

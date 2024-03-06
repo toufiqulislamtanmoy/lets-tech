@@ -2,7 +2,7 @@ import useProgressData from "../../Hooks/useProgressData";
 
 const Progress = () => {
     const { progress } = useProgressData();
-    console.log(progress)
+    // console.log(progress)
     return (
         <div className="pt-28">
             <div className="grid grid-cols-1 lg:mx-10 my-10">

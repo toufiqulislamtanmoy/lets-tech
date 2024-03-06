@@ -14,10 +14,10 @@ const Navbar = () => {
     }
 
     return (
-        <div className="navbar w-full bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100 fixed z-10 lg:px-10 ">
+        <div className="navbar w-full bg-[#151921] rounded-md fixed z-10 lg:px-10 ">
             <div className="navbar-start">
                 <div className="dropdown">
-                    <div tabIndex={0} role="button" className=" lg:hidden text-orange-400">
+                    <div tabIndex={0} role="button" className=" lg:hidden text-blue-50">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </div>
                     <ul tabIndex={0} className="menu menu-sm bg-base-100 dropdown-content mt-3 z-[1] p-2 shadow ">
@@ -36,17 +36,17 @@ const Navbar = () => {
                         <li><Link to="/askQuestion">Ask Question</Link></li>
                     </ul>
                 </div>
-                <Link to="/" className="cursor-pointer text-orange-400">
+                <Link to="/" className="cursor-pointer text-blue-50">
                     <img className="w-20 h-20" src={logo} alt="" />
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="flex gap-5 relative px-1 ">
-                    <li><Link to="/" className={`hover:text-pink-500 text-orange-400  hover:transition-colors hover:duration-500 ${location.pathname === '/' ? 'text-pink-400 bg-opacity-100' : ''}`}>Home</Link></li>
+                    <li><Link to="/" className={`hover:text-pink-500 text-blue-50  hover:transition-colors hover:duration-500 ${location.pathname === '/' ? 'text-pink-400 bg-opacity-100' : ''}`}>Home</Link></li>
                     <li>
                         <details>
                             <summary
-                                className={`hover:text-pink-500 text-orange-400 cursor-pointer hover:transition-colors hover:duration-500 ${location.pathname.includes('/tutorialdetails/') ? 'text-pink-400 bg-opacity-100' : ''
+                                className={`hover:text-pink-500 text-blue-50 cursor-pointer hover:transition-colors hover:duration-500 ${location.pathname.includes('/tutorialdetails/') ? 'text-pink-400 bg-opacity-100' : ''
                                     }`}
                             >
                                 Tutorial
@@ -67,7 +67,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <Link
-                            className={`hover:text-pink-500 text-orange-400  hover:transition-colors hover:duration-500 ${location.pathname === '/questions' ? 'text-pink-400 bg-opacity-100' : ''}`}
+                            className={`hover:text-pink-500 text-blue-50  hover:transition-colors hover:duration-500 ${location.pathname === '/questions' ? 'text-pink-400 bg-opacity-100' : ''}`}
                             to="/questions"
                         >Ask Question</Link>
                     </li>

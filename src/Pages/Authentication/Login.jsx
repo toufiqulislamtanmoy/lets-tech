@@ -21,7 +21,7 @@ const Login = () => {
         googleLogin().then((loggedInUser) => {
             // Signed in 
             const user = loggedInUser.user;
-            console.log(user);
+            // console.log(user);
 
             const saveUser = {
                 name: user.displayName,
@@ -30,17 +30,17 @@ const Login = () => {
                 role: "user",
                 points: 0
             }
-            fetch("http://localhost:5000/users", {
+            fetch("https://learn-program-server.vercel.app/users", {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify(saveUser)
             }).then(res => res.json()).then(data => {
-                console.log(data);
+                // console.log(data);
                 if (data.insertedId || data.message) {
                     navigate(destination, { replace: true })
-                    console.log(destination);
+                    // console.log(destination);
                     Swal.fire({
                         icon: 'success',
                         title: 'Login successfully',
@@ -55,7 +55,7 @@ const Login = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log("Error Message: ", errorMessage, "Error Code: ", errorCode);
+                // console.log("Error Message: ", errorMessage, "Error Code: ", errorCode);
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -68,12 +68,12 @@ const Login = () => {
 
     // Login with email and password
     const onSubmit = data => {
-        console.log(data);
+        // console.log(data);
 
         loginUser(data.email, data.password).then((loggedInUser) => {
             // Signed in 
             const user = loggedInUser.user;
-            console.log(user);
+            // console.log(user);
             navigate(destination, { replace: true })
             Swal.fire({
                 icon: 'success',
@@ -86,7 +86,7 @@ const Login = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log("Error Message: ", errorMessage, "Error Code: ", errorCode);
+                // console.log("Error Message: ", errorMessage, "Error Code: ", errorCode);
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -99,7 +99,7 @@ const Login = () => {
 
     const handaleForgetPassword = () => {
         const email = watch('email');
-        console.log(email);
+        // console.log(email);
         if (!email) {
             Swal.fire({
                 icon: 'error',
