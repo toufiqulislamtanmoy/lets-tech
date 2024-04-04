@@ -14,7 +14,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className="navbar w-full bg-[#151921] rounded-md fixed z-10 lg:px-10 ">
+        <div className="navbar w-full bg-[#151921] fixed z-10 lg:px-10 ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className=" lg:hidden text-blue-50">
@@ -33,7 +33,7 @@ const Navbar = () => {
                             </ul>
                         </li>
 
-                        <li><Link to="/askQuestion">Ask Question</Link></li>
+                        <li><Link to="/questions">Ask Question</Link></li>
                     </ul>
                 </div>
                 <Link to="/" className="cursor-pointer text-blue-50">
@@ -125,7 +125,7 @@ const Navbar = () => {
                             </div>
                         </div>
                         :
-                        <Link to="/login" className={`hover:text-info hover:transition-colors text-xl font-extrabold hover:duration-500 ${location.pathname === '/signin' ? 'text-info' : ''}`}>Sign In</Link>
+                        <Link to="/login" className={`hover:text-info text-blue-50 hover:transition-colors text-xl font-extrabold hover:duration-500 ${location.pathname === '/signin' ? 'text-info' : ''}`}>Sign In</Link>
                 }
             </div>
         </div>

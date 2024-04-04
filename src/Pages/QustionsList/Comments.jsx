@@ -18,7 +18,7 @@ const Comments = ({ qid }) => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await axiosSecure.get(`https://learn-program-server.vercel.app/copq/${qid}`);
+                const response = await axiosSecure.get(`http://localhost:5000/copq/${qid}`);
 
                 // console.log(`qid => ${qid} Comments =>`, response.data);
                 setCopq(response.data)
@@ -42,7 +42,7 @@ const Comments = ({ qid }) => {
         }
 
 
-        axiosSecure.post('https://learn-program-server.vercel.app/add-comment', commentData, {
+        axiosSecure.post('http://localhost:5000/add-comment', commentData, {
             headers: {
                 'Content-Type': 'application/json',
             },

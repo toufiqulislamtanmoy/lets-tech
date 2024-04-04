@@ -6,7 +6,7 @@ const useAllQuestions = () => {
     const { data: questions = [], isLoading: loading, refetch } = useQuery({
         queryKey: ['questions'],
         queryFn: async () => {
-            // const res = await fetch('https://learn-program-server.vercel.app/dispLang');
+            // const res = await fetch('http://localhost:5000/dispLang');
             // return res.json();
             const response = await axiosSecure(`all-questions`)
             return response.data;

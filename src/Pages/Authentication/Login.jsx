@@ -30,7 +30,7 @@ const Login = () => {
                 role: "user",
                 points: 0
             }
-            fetch("https://learn-program-server.vercel.app/users", {
+            fetch("http://localhost:5000/users", {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'

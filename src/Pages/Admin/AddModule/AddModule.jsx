@@ -13,7 +13,7 @@ const AddModule = () => {
     const [textContent, setContent] = useState("")
     const onSubmit = (data) => {
         const newContent = { ...data, textContent, langID: id };
-        axiosSecure.post('https://learn-program-server.vercel.app/add-module', newContent, {
+        axiosSecure.post('http://localhost:5000/add-module', newContent, {
             headers: {
                 'Content-Type': 'application/json',
             },

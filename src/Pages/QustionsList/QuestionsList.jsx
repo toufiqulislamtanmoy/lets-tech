@@ -26,7 +26,7 @@ const QuestionsList = () => {
             timestamp: new Date().toISOString()
         }
 
-        axiosSecure.post('https://learn-program-server.vercel.app/add-question', questionData, {
+        axiosSecure.post('http://localhost:5000/add-question', questionData, {
             headers: {
                 'Content-Type': 'application/json',
             },

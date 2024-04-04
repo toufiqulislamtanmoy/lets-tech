@@ -15,7 +15,7 @@ const AddLanguages = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = data => {
-    fetch('https://learn-program-server.vercel.app/addLang', {
+    fetch('http://localhost:5000/addLang', {
       method: "POST",
       headers: {
         'content-type': 'application/json'
